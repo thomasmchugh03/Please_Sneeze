@@ -435,6 +435,12 @@ PrefabInstance:
       propertyPath: startDashTime
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4932011354801203461, guid: ad6add9af83b5e044b267f52e47f37c6,
+        type: 3}
+      propertyPath: dashEffect
+      value: 
+      objectReference: {fileID: 1613744314088637775, guid: 16be2d5f8d0494141a72ccddf816742d,
+        type: 3}
     - target: {fileID: 4932011354801203462, guid: ad6add9af83b5e044b267f52e47f37c6,
         type: 3}
       propertyPath: m_BodyType
