@@ -12,12 +12,16 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D mainbody;
     public Animator animator;
-    public GameObject dashEffect;
+    //public GameObject dashEffect;
 
     Vector2 movement;
 
+    ObjectPooler objectPooler;
+
     void Start()
     {
+        objectPooler = ObjectPooler.Instance;
+
         mainbody = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         move = moveSpeed;
@@ -52,13 +56,18 @@ public class PlayerMovement : MonoBehaviour
     {
 
         //Creat dash animation, then destroy it to not take up resources
-        GameObject cloud = Instantiate(dashEffect, transform.position, Quaternion.identity);
+        //GameObject cloud = Instantiate(dashEffect, transform.position, Quaternion.identity);
+
+        GameObject cloud = objectPooler.SpawnFromPool("CloudAnimation", transform.position, Quaternion.identity);
 
         //Assign speed to dashspeed, wait the alloted time, then return to normal
         move = dashSpeed;
         yield return new WaitForSeconds(dashTime);
         move = moveSpeed;
-        Destroy(cloud, .5f);
+        yield return new WaitForSeconds(.5f);
+        cloud.SetActive(false);
 
     }
+
+
 }

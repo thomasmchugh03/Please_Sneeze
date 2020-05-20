@@ -22,8 +22,15 @@ public class GunAttatchment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+        if (target == null)
+        {
+            //Do nothing
+        }
+
         //If the distance between the object and the target is greater than 0, have the object move towards the target
-        if(Vector2.Distance(transform.position, target.position) > 0)
+        else if (Vector2.Distance(transform.position, target.position) > 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }

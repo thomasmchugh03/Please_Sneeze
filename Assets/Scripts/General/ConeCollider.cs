@@ -19,7 +19,7 @@ public class ConeCollider : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D hitInfo)
     {
-        Enemy enemy = hitInfo.GetComponent<Enemy>();
+        BaseEnemy enemy = hitInfo.GetComponent<BaseEnemy>();
         if(enemy != null)
         {
             Debug.Log("Hit");
