@@ -40,7 +40,7 @@ public abstract class BaseEnemy : MonoBehaviour
             Die();
             for(int i = 0; i < health/10; i++)
             {
-                var drop = Instantiate(experiencePrefab, transform.position + new Vector3(Random.Range(0,2), Random.Range(0,2)), Quaternion.identity);
+                var drop = Instantiate(experiencePrefab, transform.position, Quaternion.identity);
 
                 drop.GetComponent<ExpFollow>().target = player.transform;
             }

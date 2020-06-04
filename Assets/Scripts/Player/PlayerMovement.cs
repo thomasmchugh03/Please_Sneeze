@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        movement.Normalize();
+
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
@@ -67,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         cloud.SetActive(false);
 
+    }
+
+    public float getSpeed()
+    {
+        return move;
     }
 
 
