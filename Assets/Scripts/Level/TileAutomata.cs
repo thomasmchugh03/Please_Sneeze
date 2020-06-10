@@ -22,11 +22,25 @@ public class TileAutomata : MonoBehaviour {
     public Vector3Int tmpSize;
     public Tilemap topMap;
     public Tilemap botMap;
-    public Tile topTile;
+    public RuleTile topTile;
     public Tile botTile;
+
+    public GameObject player;
+    public Camera playerCamera;
+    private GameObject user;
+    private Camera playerCam;
+
+    public GameObject enemy;
+    private List<GameObject> enemyList = new List<GameObject>();
 
     int width;
     int height;
+
+
+    void Awake()
+    {
+        
+    }
 
     public void doSim(int nu)
     {
@@ -50,9 +64,23 @@ public class TileAutomata : MonoBehaviour {
         {
             for (int y = 0; y < height; y++)
             {
+                int random = Random.Range(1, 1001);
                 if (terrainMap[x, y] == 1)
+                {
+                    
                     topMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), topTile);
+                    if(random > 990)
+                    {
+                        GameObject tmp = Instantiate(enemy, new Vector3(-x + width / 2, -y + height / 2, 0), Quaternion.identity);
+                        enemyList.Add(tmp);
+                    }
+                }
+                else
+                {
                     botMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), botTile);
+                }
+                    //topMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), topTile);
+                    //botMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), botTile);
             }
         }
 
@@ -78,7 +106,7 @@ public class TileAutomata : MonoBehaviour {
         int[,] newMap = new int[width,height];
         int neighb;
         BoundsInt myB = new BoundsInt(-1, -1, 0, 3, 3, 1);
-
+        
 
         for (int x = 0; x < width; x++)
         {
@@ -87,7 +115,12 @@ public class TileAutomata : MonoBehaviour {
                 neighb = 0;
                 foreach (var b in myB.allPositionsWithin)
                 {
-                    if (b.x == 0 && b.y == 0) continue;
+                    
+                    if (b.x == 0 && b.y == 0)
+                    {
+                        
+                        continue;
+                    }
                     if (x+b.x >= 0 && x+b.x < width && y+b.y >= 0 && y+b.y < height)
                     {
                         neighb += oldMap[x + b.x, y + b.y];
@@ -97,7 +130,7 @@ public class TileAutomata : MonoBehaviour {
                         neighb++;
                     }
                 }
-
+                
                 if (oldMap[x,y] == 1)
                 {
                     if (neighb < deathLimit) newMap[x, y] = 0;
@@ -113,15 +146,17 @@ public class TileAutomata : MonoBehaviour {
                 {
                     if (neighb > birthLimit) newMap[x, y] = 1;
 
-                else
-                {
-                    newMap[x, y] = 0;
-                }
+                    else
+                    {
+                        newMap[x, y] = 0;
+                    }
                 }
 
             }
 
         }
+
+        Debug.Log(newMap);
 
 
 
@@ -131,15 +166,18 @@ public class TileAutomata : MonoBehaviour {
 
 	void Update () {
 
+        /**
+        
         if (Input.GetMouseButtonDown(0))
             {
-            doSim(numR);
+                //doSim(numR);
+                SceneSetup();
             }
 
 
         if (Input.GetMouseButtonDown(1))
             {
-            clearMap(true);
+                clearMap(true);
             }
 
 
@@ -149,15 +187,20 @@ public class TileAutomata : MonoBehaviour {
             SaveAssetMap();
             count++;
         }
-
-
-
-
-
-
-
-
+        
+        **/
         }
+
+    public void SceneSetup()
+    {
+        clearMap(true);
+        doSim(numR);
+        user = Instantiate(player, new Vector3(-width/2 + 2f, -height/2 + 2f, 0f), Quaternion.identity);
+        if(playerCam == null)
+        {
+            playerCam = Instantiate(playerCamera, new Vector3(-width / 2 + 2f, -height / 2 + 2f, -10f), Quaternion.identity);   
+        }
+    }
 
 
     public void SaveAssetMap()
@@ -188,12 +231,23 @@ public class TileAutomata : MonoBehaviour {
 
         topMap.ClearAllTiles();
         botMap.ClearAllTiles();
+        ClearScene();
         if (complete)
         {
             terrainMap = null;
         }
 
 
+    }
+
+    public void ClearScene()
+    {
+        Destroy(user);
+        Destroy(playerCam);
+        foreach(GameObject item in enemyList)
+        {
+            Destroy(item);
+        }
     }
 
 

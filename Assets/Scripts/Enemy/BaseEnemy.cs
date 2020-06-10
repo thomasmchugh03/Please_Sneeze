@@ -15,22 +15,20 @@ public abstract class BaseEnemy : MonoBehaviour
     public GameObject experiencePrefab;
 
     private float timeLeft;
+    private Vector3 currentPos;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
 
 
     void FixedUpdate()
     {
         Movement();
+        
     }
 
     public virtual void OnAwake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        currentPos = gameObject.transform.position;
     }
 
     public virtual void TakeDamage(float damage)
@@ -62,7 +60,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            moveSpot.transform.position = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
+            moveSpot.transform.position = new Vector2(Random.Range(currentPos.x-3, currentPos.x+3), Random.Range(currentPos.y-3, currentPos.y+3));
             timeLeft = waitTime;
         }
         else

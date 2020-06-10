@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 
 public class CameraFollow : MonoBehaviour
 {
-    public PlayerMovement target;
+    private PlayerMovement player;
+    private GameObject target;
     public Vector2 offset;
     public float speed = 3f;
     private Vector2 threshold;
@@ -14,27 +15,33 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player");
+        player = target.GetComponent<PlayerMovement>();
         threshold = calculateThreshold();
-
     }
 
     void FixedUpdate()
     {
-        Vector2 follow = target.transform.position;
-        float xDifference = Vector2.Distance(Vector2.right * transform.position.x, Vector2.right * follow.x);
-        float yDifference = Vector2.Distance(Vector2.up * transform.position.y, Vector2.up * follow.y);
 
-        Vector3 newPosition = transform.position;
-        if(Math.Abs(xDifference) >= threshold.x)
+        if (target!= null)
         {
-            newPosition.x = follow.x;
-        }
-        if (Math.Abs(yDifference) >= threshold.y)
-        {
-            newPosition.y = follow.y;
-        }
+            Vector2 follow = target.transform.position;
+            float xDifference = Vector2.Distance(Vector2.right * transform.position.x, Vector2.right * follow.x);
+            float yDifference = Vector2.Distance(Vector2.up * transform.position.y, Vector2.up * follow.y);
 
-        transform.position = Vector3.MoveTowards(transform.position, newPosition, target.getSpeed() * Time.fixedDeltaTime);
+            Vector3 newPosition = transform.position;
+            if (Math.Abs(xDifference) >= threshold.x)
+            {
+                newPosition.x = follow.x;
+            }
+            if (Math.Abs(yDifference) >= threshold.y)
+            {
+                newPosition.y = follow.y;
+            }
+
+            transform.position = Vector3.MoveTowards(transform.position, newPosition, player.getSpeed() * Time.fixedDeltaTime);
+        }
+        
     }
 
     private Vector3 calculateThreshold()
@@ -52,5 +59,10 @@ public class CameraFollow : MonoBehaviour
         Gizmos.color = Color.blue;
         Vector2 border = calculateThreshold();
         Gizmos.DrawWireCube(transform.position, new Vector3(border.x * 2, border.y * 2, 1));
+    }
+
+    void LateUpdate()
+    {
+        
     }
 }

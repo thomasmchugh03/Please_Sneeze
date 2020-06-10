@@ -36,11 +36,13 @@ public class GunAttatchment : MonoBehaviour
         }
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        
     }
 
     void FixedUpdate()
     {
         //Subtracting two vectors results in a vector that points from one to the other
+        Debug.Log(cam.transform.position);
         Vector2 lookDir = mousePos - mainbody.position;
 
         //For the Z rotation of the object, we need to find the angle that will force the player to turn and change the initial firing position
@@ -49,4 +51,6 @@ public class GunAttatchment : MonoBehaviour
         mainbody.rotation = angle;
 
     }
+
+
 }
