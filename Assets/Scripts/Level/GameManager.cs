@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public TileAutomata board;
+    public Texture2D cursor;
     public static GameManager instance = null;
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         board.SceneSetup();
+        Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Update is called once per frame

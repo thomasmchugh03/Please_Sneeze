@@ -6,7 +6,7 @@ public class GunAttatchment : MonoBehaviour
 {
     public Rigidbody2D mainbody;
     public float speed;
-    public Camera cam;
+    private Camera cam;
 
     private Transform target;
 
@@ -17,6 +17,8 @@ public class GunAttatchment : MonoBehaviour
     {
         //Find the target that you want the object to move towards
         target = GameObject.FindGameObjectWithTag("FirePoint").GetComponent<Transform>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        
     }
 
     // Update is called once per frame

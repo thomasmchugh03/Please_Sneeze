@@ -27,8 +27,10 @@ public class TileAutomata : MonoBehaviour {
 
     public GameObject player;
     public Camera playerCamera;
+    public GameObject imaginaryGun;
     private GameObject user;
     private Camera playerCam;
+    private GameObject newGun;
 
     public GameObject enemy;
     private List<GameObject> enemyList = new List<GameObject>();
@@ -198,7 +200,8 @@ public class TileAutomata : MonoBehaviour {
         user = Instantiate(player, new Vector3(-width/2 + 2f, -height/2 + 2f, 0f), Quaternion.identity);
         if(playerCam == null)
         {
-            playerCam = Instantiate(playerCamera, new Vector3(-width / 2 + 2f, -height / 2 + 2f, -10f), Quaternion.identity);   
+            playerCam = Instantiate(playerCamera, new Vector3(-width / 2 + 2f, -height / 2 + 2f, -10f), Quaternion.identity);
+            newGun = Instantiate(imaginaryGun, user.transform.position, Quaternion.identity);
         }
     }
 

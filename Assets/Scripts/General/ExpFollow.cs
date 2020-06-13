@@ -8,6 +8,7 @@ public class ExpFollow : MonoBehaviour
     public float minModifier;
     public float maxModifier;
     public Rigidbody2D rb;
+    public float force;
 
     Vector3 velocity = Vector3.zero;
     bool isFollowing;
@@ -15,7 +16,7 @@ public class ExpFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.AddForce(new Vector2(Random.Range(-2, 2), Random.Range(-2, 2)));
+        rb.AddForce(new Vector2(Random.Range(-force, force), Random.Range(-force, force)));
     }
 
     public void StartFollowing()

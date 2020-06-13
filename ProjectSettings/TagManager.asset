@@ -15,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Island_Water
+  - Land
   - 
   - 
   - 
@@ -42,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1234369407
+    locked: 0
+  - name: Water
+    uniqueID: 1160263721
+    locked: 0
+  - name: Land
+    uniqueID: 3155224547
+    locked: 0
+  - name: Player
+    uniqueID: 3320922597
+    locked: 0
+  - name: Decorations
+    uniqueID: 688699201
     locked: 0

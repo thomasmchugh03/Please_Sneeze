@@ -18,6 +18,7 @@ public class CameraFollow : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         player = target.GetComponent<PlayerMovement>();
         threshold = calculateThreshold();
+        
     }
 
     void FixedUpdate()
